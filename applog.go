@@ -8,6 +8,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
+	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -225,8 +227,13 @@ func checkEnable(){
 	req, err := http.NewRequest("GET",checkURL,nil)
 	if err!=nil{
 		log.Println("applog@checkEnable err:",err.Error())
+		return
 	}
-	resp, err := client.Do(req)
+	resp, errRequest := client.Do(req)
+	if errRequest!=nil{
+		log.Println("applog@checkEnable errRequest:",errRequest.Error())
+		return
+	}
 	defer resp.Body.Close()
 	if resp.StatusCode<200 || resp.StatusCode>=300{
 		log.Println("applog@checkEnable status code:",resp.StatusCode )
@@ -336,8 +343,25 @@ func _log(level int,tag string,message string,uid int64) {
 	 }
 	 timestamp:=time.Now().Unix()
  
+	 stackData:=string(debug.Stack())
+	 stackArr:=strings.Split(stackData,"\n")
+	//  for k:=0;k<len(stackArr);k++{
+	// 	 log.Println(k,stackArr[k])
+	//  }
 	 rownum:=1
-	 file:="main.go"
+	 file:=".go"
+	 if len(stackArr)>8{
+		gofile:=string(stackArr[8])
+		reg1 := regexp.MustCompile(`\s+(.*)/(.*\.go):(\d+)\s\+0x[a-z0-9]+`)
+		result1:=reg1.FindAllStringSubmatch(gofile,-1)
+		// fmt.Println("result1 = ", result1)
+		if len(result1)==1{
+			file=result1[0][2]
+			rownum,_=strconv.Atoi(result1[0][3])
+			// fmt.Println("@_log file=", file)
+			// fmt.Println("@_log rownum=", rownum)
+		}
+	 }
 
 	 d:= fmt.Sprintf("{\"t\":%d,\"l\":%d,\"g\":\"%s\",\"c\":\"%s\",\"u\":%d,\"s\":\"%s\",\"r\":%d}",timestamp,level,tag,filter(message),uid,filter(file),rownum)
 	 revChan<-d
