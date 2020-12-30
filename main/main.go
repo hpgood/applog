@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	log.Println("start test")
+	log.Println("start test log")
 	applog.Info("test","hello",-1)
 	time.Sleep(time.Second*5)
 	applog.Info("test","world",-1)

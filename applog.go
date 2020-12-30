@@ -260,7 +260,7 @@ func checkEnable(){
 func post(data string) bool{
 
 	client := &http.Client{}
-	log.Println("@post ",confData.URL,data)
+	// log.Println("@post ",confData.URL,data)
   req, err := http.NewRequest("POST", confData.URL, strings.NewReader(data))
   if err != nil {
 			// handle error
