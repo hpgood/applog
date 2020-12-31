@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"runtime"
 	"runtime/debug"
 	"strconv"
 	"strings"
@@ -118,6 +119,11 @@ func init(){
 	}
 	if confURL==""{
 		confURL=defaultURL
+	}
+ 
+	if runtime.GOOS == "windows" && strings.Index(confURL,"apps-applog.default")!=-1 {
+		confURL="https://api.yondor.cn/logcat/server"
+		log.Println("applog@init [Windows]调试模式 使用url:",confURL)
 	}
 
 	var err error=nil
@@ -236,7 +242,7 @@ func checkEnable(){
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode<200 || resp.StatusCode>=300{
-		log.Println("applog@checkEnable status code:",resp.StatusCode )
+		log.Println("applog@checkEnable status code:",resp.StatusCode,"url:",checkURL )
 		return
 	}
 	body, errRead := ioutil.ReadAll(resp.Body)
@@ -294,7 +300,7 @@ func post(data string) bool{
 			return false
 	}
 	content:=string(body)
-	fmt.Println("applog@post message:",content)
+	fmt.Println("applog@post status:",resp.StatusCode,"error:",content)
 	return false
 }
  
