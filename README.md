@@ -1,6 +1,6 @@
 # applog
 applog to cloud using http.
-## Golang 版本 日志收集到腾讯云
+## Golang 版本 日志收集到云
 
 ### 包名：
 "github.com/hpgood/applog"
@@ -53,7 +53,7 @@ func main() {
 
 
 
-## JAVA版本 日志收集到腾讯云
+## JAVA版本 日志收集到云
 
 
 ### pom 导入
