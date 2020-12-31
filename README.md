@@ -23,7 +23,7 @@ version 版本
 time 日志提交频率,默认 5000 ms
 appid 自定义整数appid 建议用3位固定数字,减少重复。
 token from_k8s 默认即可
-url  http://apps-applog.default/logcat/server  默认即可，调试可以用 https://api.yondor.cn/logcat/server
+url  http://apps-applog.default/logcat/server  默认即可
 ```
 
 ## 代码例子：
