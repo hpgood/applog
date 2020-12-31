@@ -35,18 +35,13 @@ import (
 )
 
 func main() {
-
-	log.Println("start test log")
-  //Fine 级别日志
+  log.Println("start test log")
   applog.Fine("test","hello",-1)
-  //Info 级别日志
-	applog.Info("test","hello",-1)
-	time.Sleep(time.Second*5)
-  //Warn 级别日志
-	applog.Warn("test","world",-1)
-  //Error 级别日志
+  applog.Info("test","hello",-1)
+  time.Sleep(time.Second*5)
+  applog.Warn("test","world",-1)
   applog.Error("test","world",-1)
-	time.Sleep(time.Second*5)
-	applog.Info("test","finish!",-1)
+  time.Sleep(time.Second*5)
+  applog.Info("test","finish!",-1)
 }
 
