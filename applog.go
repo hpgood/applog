@@ -347,7 +347,8 @@ func _log(level int,tag string,message string,uid int64) {
 		 //没有生效
 		 return
 	 }
-	 timestamp:=time.Now().Unix()
+	 
+	 timestamp:=time.Now().UnixNano() / 1e6
  
 	 stackData:=string(debug.Stack())
 	 stackArr:=strings.Split(stackData,"\n")
