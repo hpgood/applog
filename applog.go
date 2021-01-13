@@ -76,14 +76,16 @@ func confWarn(msg string){
 func init(){
 	hasInit=false
 	appIniFile:=""
-	if fileExists("./data/config/app.ini"){
+	if fileExists("./data/conf/app.ini"){
+		appIniFile="./data/conf/app.ini"
+	}else if fileExists("./data/config/app.ini"){
 		appIniFile="./data/config/app.ini"
 	}else	if fileExists("app.ini"){
 		appIniFile="app.ini"
 	}else	if fileExists("log.ini"){
 		appIniFile="log.ini"
 	}else{
-		confWarn("Error:please config data/config/app.ini or app.ini or log.ini for log!")
+		confWarn("Error:please config data/conf/app.ini or data/config/app.ini or app.ini or log.ini for log!")
 		return
 	}
 
