@@ -31,6 +31,8 @@ var revChan chan string= make(chan string,1000)
 var head1 string
 var head2 string
 
+var regGoFile = regexp.MustCompile(`(.+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_\.]+\.go):(\d+)\s\+0x[a-z0-9]+`)
+
 //LevelFine LevelFine
 const LevelFine=0
 //LevelInfo LevelInfo
@@ -359,14 +361,21 @@ func _log(level int,tag string,message string,uid int64) {
 	 file:=".go"
 	 if len(stackArr)>8{
 		gofile:=string(stackArr[8])
-		reg1 := regexp.MustCompile(`\s+(.*)/(.*\.go):(\d+)\s\+0x[a-z0-9]+`)
-		result1:=reg1.FindAllStringSubmatch(gofile,-1)
-		// fmt.Println("result1 = ", result1)
+
+		// `([/a-zA-Z0-9\-\_:\\]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_\.]+\.go):(\d+)\s\+0x[a-z0-9]+`
+		result1:=regGoFile.FindAllStringSubmatch(gofile,-1)
+		// fmt.Println("result1 = ", result1) 
 		if len(result1)==1{
-			file=result1[0][2]
-			rownum,_=strconv.Atoi(result1[0][3])
+			dir:=result1[0][2]
+			fileName:=result1[0][3]
+			file=dir+"/"+fileName
+			rownum,_=strconv.Atoi(result1[0][4])
+			// fmt.Println("@_log dir=", dir)
 			// fmt.Println("@_log file=", file)
 			// fmt.Println("@_log rownum=", rownum)
+		}else{
+			file=gofile
+			rownum=0
 		}
 	 }
 
