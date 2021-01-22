@@ -59,7 +59,8 @@ func main() {
 // my_project_name 工程名字
 //
 applog.init(888,"my_project_name","js/applog-worker.min.js");
-applog.setRedirect(true);
+// console 重定向默认false
+applog.setRedirect(false);
 
 //设置用户ID
 applog.setUserID(123);
