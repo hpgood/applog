@@ -50,3 +50,26 @@ func main() {
 }
 ```
 
+# JS
+```
+<script src="js/applog.min.js"></script>
+<script>
+
+// 888 是appID
+// my_project_name 工程名字
+//
+applog.init(888,"my_project_name","js/applog-worker.js");
+applog.setRedirect(true);
+
+//设置用户ID
+applog.setUserID(123);
+
+// info
+applog.info("main.html","hello info message");
+// warn
+applog.warn("main.html","warn message");
+// error
+applog.error("err.html","error message");
+
+</script>
+```
