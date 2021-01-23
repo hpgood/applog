@@ -56,9 +56,9 @@ func main() {
 <script>
 
 // 888 是appID
-// my_project_name 工程名字
+// project-1.0 工程名字+版本号
 //
-applog.init(888,"my_project_name","js/applog-worker.min.js");
+applog.init(888,"project-1.0","js/applog-worker.min.js");
 // console 重定向默认false
 applog.setRedirect(false);
 
