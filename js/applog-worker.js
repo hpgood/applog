@@ -49,7 +49,7 @@ function autoSubmit() {
         "uid": head.uid,
         "device": head.device,
         "platform": head.platform,
-        "key": head.uuid,
+        "key": head.key,
         "data": datas
     };
     var url = head.url + '/logcat/app';
