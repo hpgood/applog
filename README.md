@@ -89,21 +89,23 @@ JAVA 日志收集到腾讯云工具类
 	</dependency>
 ```
 2.增加 applog.properties 配置文件到classes文件夹:
+```
 project=AppLog
 version=0.0.1
 time=5000
 appid=10
 token=from_k8s
 url=http\://apps-applog.default/logcat/server
-
+```
 说明：
+```
 project:工程名称
 version:工程版本
 time:发送日志频率
 appid: 自定义appid ，大家不同就可以了。
 token: 暂时没有用
 url: 发布日志的url
-
+```
 3.用法：
 
 ```
